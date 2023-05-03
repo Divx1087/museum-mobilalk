@@ -4,8 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/SC/8th semester/Mobilalk/museum/app/src/main/res/layout-land/activity_main.xml" value="0.30687830687830686" />
-        <entry key="..\:/SC/8th semester/Mobilalk/museum/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.27049180327868855" />
+        <entry key="..\:/SC/8th semester/Mobilalk/museum/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.33" />
         <entry key="..\:/SC/8th semester/Mobilalk/museum/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/SC/8th semester/Mobilalk/museum/app/src/main/res/layout/activity_registration.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>
