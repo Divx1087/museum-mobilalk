@@ -8,22 +8,22 @@
 
     <EditText
         android:id="@+id/editTextUserName"
-        android:layout_width="350dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24"
+        app:layout_constraintVertical_bias="0.229"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="350dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/password"
