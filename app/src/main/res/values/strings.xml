@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Múzeumok</string>
+    <string name="appName">Múzeumok</string>
     <string name="username">Felhasználónév</string>
     <string name="password">Jelszó</string>
     <string name="login">Bejelentkezés</string>
@@ -8,4 +8,5 @@
     <string name="passwordAgain">Jelszó megerősítése</string>
     <string name="phoneNumber">Telefonszám</string>
     <string name="cancel">Mégse</string>
+    <string name="productDesc">Termék leírás</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.museum;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = RegistrationActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
+    private static final int SECRET_KEY = 99;
 
     EditText userNameEditText;
     EditText userEmailEditText;
@@ -66,12 +68,18 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Log.i(LOG_TAG, "bejelentkezett: " + userName + ", email: " + email + ", telefonszám: " + phone);
         //TODO: A regisztrációs funcionalitást meg kell csinálni.
-
+        startShopping();
     }
 
     public void cancel(View view) {
         finish();
         Log.i(LOG_TAG, "cancel");
+    }
+
+    private void startShopping(/* registered user data*/) {
+        Intent intent = new Intent(this, MuseumListActivity.class);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
+        startActivity(intent);
     }
 
     @Override
