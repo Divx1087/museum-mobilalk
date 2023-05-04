@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
 
+    FirebaseFirestore firestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.editTextPassword);
 
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
+
+        firestore = FirebaseFirestore.getInstance();
 
         Log.i(LOG_TAG, "onCreate");
     }
