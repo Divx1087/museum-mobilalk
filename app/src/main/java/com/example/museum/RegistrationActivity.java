@@ -1,5 +1,6 @@
 package com.example.museum;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -22,6 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText userPhoneEditText;
 
     private SharedPreferences preferences;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,8 @@ public class RegistrationActivity extends AppCompatActivity {
         userPasswordEditText.setText(password);
         userPasswordAgainEditText.setText(password);
 
+        mAuth = FirebaseAuth.getInstance();
+
         Log.i(LOG_TAG, "onCreate");
     }
 
@@ -67,8 +77,20 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         Log.i(LOG_TAG, "bejelentkezett: " + userName + ", email: " + email + ", telefonszám: " + phone);
-        //TODO: A regisztrációs funcionalitást meg kell csinálni.
-        startShopping();
+        //startShopping();
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    Log.d(LOG_TAG, "User created successfully");
+                    startShopping();
+                } else {
+                    Log.d(LOG_TAG, "User wasn't created successfully");
+                    Toast.makeText(RegistrationActivity.this, "User wasn't created successfully: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void cancel(View view) {
@@ -78,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void startShopping(/* registered user data*/) {
         Intent intent = new Intent(this, MuseumListActivity.class);
-        intent.putExtra("SECRET_KEY", SECRET_KEY);
+        //intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }
 

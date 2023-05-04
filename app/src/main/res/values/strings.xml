@@ -1,12 +1,13 @@
 <resources>
-    <string name="appName">Múzeumok</string>
-    <string name="username">Felhasználónév</string>
-    <string name="password">Jelszó</string>
-    <string name="login">Bejelentkezés</string>
-    <string name="registration">Regisztráció</string>
-    <string name="email">E-mail cím</string>
-    <string name="passwordAgain">Jelszó megerősítése</string>
-    <string name="phoneNumber">Telefonszám</string>
-    <string name="cancel">Mégse</string>
-    <string name="productDesc">Termék leírás</string>
+    <string name="appName">Museums</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Sign in</string>
+    <string name="registration">Sign up</string>
+    <string name="email">E-mail</string>
+    <string name="passwordAgain">Password confirm</string>
+    <string name="phoneNumber">Phone number</string>
+    <string name="cancel">Cancel</string>
+    <string name="productDesc">Product description</string>
+    <string name="continueWithGoogle">Sign in with Google</string>
 </resources>
