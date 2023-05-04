@@ -1,7 +1,6 @@
 package com.example.museum;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,13 +105,6 @@ public class ShoppingItemAdapter extends RecyclerView.Adapter<ShoppingItemAdapte
             mPriceText = itemView.findViewById(R.id.itemPrice);
             mItemImage = itemView.findViewById(R.id.itemImage);
 
-            itemView.findViewById(R.id.add_to_cart); itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("Activity", "Add cart button clicked!");
-                    ((MuseumListActivity)mContext).updateAlertIcon();
-                }
-            });
         };
 
         public void bindTo(ShoppingItem currentItem) {
@@ -120,8 +112,9 @@ public class ShoppingItemAdapter extends RecyclerView.Adapter<ShoppingItemAdapte
             mInfoText.setText(currentItem.getInfo());
             mPriceText.setText(currentItem.getPrice());
 
-            //Glide.with(mContext).load(currentItem.getImageResource()).into(mItemImage);
             Glide.with(mContext).load(currentItem.getImageResource()).into(mItemImage);
+            itemView.findViewById(R.id.add_to_cart).setOnClickListener(view ->((MuseumListActivity)mContext).updateAlertIcon(currentItem));
+            itemView.findViewById(R.id.delete_from_cart).setOnClickListener(view -> ((MuseumListActivity)mContext).deleteItem(currentItem));
         }
     }
 

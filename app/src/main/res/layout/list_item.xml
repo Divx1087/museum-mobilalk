@@ -16,11 +16,9 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:adjustViewBounds="true"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            app:srcCompat="@drawable/lam_logo1"
-            android:paddingTop="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/lam_logo1"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -47,22 +45,33 @@
             android:id="@+id/itemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="52dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="192dp"
+            android:layout_marginBottom="4dp"
             android:text="@string/price"
-            app:layout_constraintLeft_toRightOf="@id/itemDesc"
-            app:layout_constraintTop_toTopOf="@+id/itemDesc" />
+            app:layout_constraintBottom_toTopOf="@+id/delete_from_cart"
+            app:layout_constraintStart_toEndOf="@+id/itemImage" />
 
         <Button
-            android:id="@+id/buttonRegistration"
+            android:id="@+id/add_to_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="58dp"
             android:onClick="buy"
-            android:text="@string/addToCart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.877"
+            android:text="@string/reserved"
             app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
+
+        <Button
+            android:id="@+id/delete_from_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="58dp"
+            android:onClick="delete"
+            android:text="@string/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.753"
+            app:layout_constraintStart_toEndOf="@+id/add_to_cart"
             app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
 
 

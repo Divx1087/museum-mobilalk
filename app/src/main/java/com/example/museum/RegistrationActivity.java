@@ -20,7 +20,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = RegistrationActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
-    private static final int SECRET_KEY = 99;
 
     EditText userNameEditText;
     EditText userEmailEditText;

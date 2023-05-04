@@ -1,9 +1,13 @@
 package com.example.museum;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -14,11 +18,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
@@ -26,11 +34,15 @@ public class MuseumListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MuseumListActivity.class.getName();
     private FirebaseUser user;
-    private FirebaseAuth mAuth;
 
     private RecyclerView mRecyclerView;
     private ArrayList<ShoppingItem> mItemList;
     private ShoppingItemAdapter mAdapter;
+
+    private FirebaseFirestore mFirestore;
+    private CollectionReference mItems;
+
+    private NotificationHandler mNotificationHandler;
 
     private FrameLayout redCircle;
     private int cartItems = 0;
@@ -42,8 +54,6 @@ public class MuseumListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_museum_list);
-        mAuth = FirebaseAuth.getInstance();
-        //mAuth.signOut();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!= null) {
@@ -60,8 +70,45 @@ public class MuseumListActivity extends AppCompatActivity {
         mAdapter = new ShoppingItemAdapter(this, mItemList);
         mRecyclerView.setAdapter(mAdapter);
 
-        initializeData();
+        mFirestore = FirebaseFirestore.getInstance();
+        mItems = mFirestore.collection("Items");
 
+        queryData();
+
+        mNotificationHandler = new NotificationHandler(this);
+    }
+
+    private void queryData() {
+        mItemList.clear();
+
+        mItems.orderBy("cartedCount", Query.Direction.DESCENDING).limit(10).get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                ShoppingItem item = document.toObject(ShoppingItem.class);
+                item.setId(document.getId());
+                mItemList.add(item);
+            }
+
+            if (mItemList.size() == 0) {
+                initializeData();
+                queryData();
+            }
+            mAdapter.notifyDataSetChanged();
+        });
+
+    }
+
+    public void deleteItem(ShoppingItem item) {
+        DocumentReference ref = mItems.document(item._getId());
+
+        ref.delete().addOnSuccessListener(success -> {
+            Log.d(LOG_TAG, "Items is successfully deleted: " + item._getId());
+        })
+        .addOnFailureListener(failure -> {
+            Toast.makeText(this, "Item " + item._getId() + "cannot be deleted.", Toast.LENGTH_LONG).show();
+        });
+
+        queryData();
     }
 
     private void initializeData() {
@@ -70,15 +117,20 @@ public class MuseumListActivity extends AppCompatActivity {
         String[] itemsPrice = getResources().getStringArray(R.array.museumPriceList);
         TypedArray itemsImageResource = getResources().obtainTypedArray(R.array.museumImageList);
 
-        mItemList.clear();
+        // mItemList.clear();
 
         for (int i=0; itemsList.length > i; i++) {
-            mItemList.add(new ShoppingItem(itemsList[i], itemsInfo[i], itemsPrice[i], itemsImageResource.getResourceId(i, 0)));
+            mItems.add(new ShoppingItem(
+                    itemsList[i],
+                    itemsInfo[i],
+                    itemsPrice[i],
+                    itemsImageResource.getResourceId(i, 0),
+                    0));
         }
 
         itemsImageResource.recycle();
 
-        mAdapter.notifyDataSetChanged();
+        // mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -106,7 +158,6 @@ public class MuseumListActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -114,9 +165,6 @@ public class MuseumListActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, "Logout clicked!");
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                return true;
-            case R.id.setting_button:
-                Log.d(LOG_TAG, "Settings clicked!");
                 return true;
             case R.id.cart:
                 Log.d(LOG_TAG, "Cart clicked");
@@ -141,16 +189,43 @@ public class MuseumListActivity extends AppCompatActivity {
             }
         });
 
-
         return super.onPrepareOptionsMenu(menu);
     }
 
-    public void updateAlertIcon() {
+    public void updateAlertIcon(ShoppingItem item) {
         cartItems = (cartItems+1);
         if (cartItems > 0) {
             contentTextView.setText(String.valueOf(cartItems));
         } else {
             contentTextView.setText("");
         }
+        redCircle.setVisibility((cartItems > 0) ? VISIBLE : GONE);
+
+        mItems.document(item._getId()).update("cartedCount", item.getCartedCount()+1)
+                .addOnFailureListener(failure -> {
+                    Toast.makeText(this, "Item " + item._getId() + "cannot be changed.", Toast.LENGTH_LONG).show();
+                });
+
+        mNotificationHandler.send(item.getName());
+
+        float defaultScale = 2.0f;
+        float reducedScale = 1.4f;
+        long delay = 600;
+
+        contentTextView.setScaleX(defaultScale);
+        contentTextView.setScaleY(defaultScale);
+
+        contentTextView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                contentTextView.animate()
+                        .scaleX(reducedScale)
+                        .scaleY(reducedScale)
+                        .setDuration(300)
+                        .start();
+            }
+        }, delay);
+
+        queryData();
     }
 }
