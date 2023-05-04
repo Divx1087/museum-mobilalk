@@ -1,72 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MuseumListActivity">
 
-    <ImageView
-        android:id="@+id/lam_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lam_logo1" />
-
-    <ImageView
-        android:id="@+id/moi_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lam_logo"
-        app:srcCompat="@drawable/moi_logo" />
-
-    <ImageView
-        android:id="@+id/csopa_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moi_logo"
-        app:srcCompat="@drawable/csopa_logo1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lam_desc"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        app:layout_constraintLeft_toRightOf="@id/lam_logo"
-        app:layout_constraintTop_toTopOf="@+id/lam_logo"
-        android:text="@string/productDesc" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/moi_desc"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        app:layout_constraintLeft_toRightOf="@id/moi_logo"
-        app:layout_constraintTop_toTopOf="@+id/moi_logo"
-        android:text="@string/productDesc" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/csopa_desc"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        app:layout_constraintLeft_toRightOf="@id/csopa_logo"
-        app:layout_constraintTop_toTopOf="@+id/csopa_logo"
-        android:text="@string/productDesc" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

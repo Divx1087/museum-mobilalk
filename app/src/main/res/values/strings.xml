@@ -10,4 +10,34 @@
     <string name="cancel">Cancel</string>
     <string name="productDesc">Product description</string>
     <string name="continueWithGoogle">Sign in with Google</string>
+    <string name="addToCart">Add to cart</string>
+    <string name="price">Price</string>
+    <string name="title">Title</string>
+    <string name="default_web_cliend_id" translatable="false">889291313898-os69tjsoed901s77pltrkbpsqq8hjjb4.apps.googleusercontent.com</string>
+
+    <string-array name="museumNamesList">
+        <item>LAM</item>
+        <item>CSOPA</item>
+        <item>LAM</item>
+    </string-array>
+
+    <string-array name="museumDescList">
+        <item>Ez a Illúziók múzeuma</item>
+        <item>Ez a Csodák palotája</item>
+        <item>Ez a Light Art Museum</item>
+    </string-array>
+
+    <array name="museumPriceList">
+        <item>5000/fő</item>
+        <item>4000/fő</item>
+        <item>9000/fő</item>
+    </array>
+
+    <array name="museumImageList">
+        <item>@drawable/moi_logo</item>
+        <item>@drawable/csopa_logo1</item>
+        <item>@drawable/lam_logo1</item>
+    </array>
+
+
 </resources>

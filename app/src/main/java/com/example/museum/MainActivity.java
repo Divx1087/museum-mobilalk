@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.default_web_cliend_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(LOG_TAG, "User logged in successfully!");
                     startShopping();
                 } else {
-                    Log.d(LOG_TAG, "User wasn't created successfully");
+                    Log.d(LOG_TAG, "User wasn't created successfully"+ task.getException().getMessage());
                     Toast.makeText(MainActivity.this, "User log in failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
